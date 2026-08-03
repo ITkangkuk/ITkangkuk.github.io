@@ -3,8 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kangkuk Lee | Data Engineer</title>
+  <title>Kangkuk Lee | Backend Engineer</title>
   <style>
+    :root {
+      --ivory: #f7f3e8;
+      --ivory-soft: #fffdf7;
+      --navy: #13233f;
+      --navy-soft: #33435d;
+      --navy-muted: #647086;
+      --navy-tint: #dfe5ee;
+      --border: #d8d3c6;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -13,10 +23,12 @@
 
     body {
       font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
+      background: var(--ivory);
+      color: var(--navy);
       line-height: 1.6;
     }
+
+    html { scroll-behavior: smooth; }
 
     a {
       color: inherit;
@@ -24,44 +36,76 @@
     }
 
     header {
-      position: sticky;
+      position: fixed;
       top: 0;
-      background: rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #1e293b;
+      left: 0;
+      width: 300px;
+      height: 100vh;
+      background: var(--navy);
+      color: var(--ivory-soft);
       z-index: 10;
     }
 
     nav {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 18px 24px;
+      height: 100%;
+      padding: 52px 36px 36px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     nav h1 {
-      font-size: 20px;
-      color: #38bdf8;
+      margin-top: 20px;
+      font-size: 24px;
+      color: var(--ivory-soft);
+    }
+
+    .profile-image {
+      width: 144px;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border: 3px solid rgba(255, 255, 255, 0.72);
+      border-radius: 50%;
+    }
+
+    .profile-role {
+      margin-top: 4px;
+      color: #c9d2df;
+      font-size: 14px;
     }
 
     nav ul {
       display: flex;
-      gap: 20px;
+      width: 100%;
+      margin-top: 48px;
+      flex-direction: column;
+      gap: 8px;
       list-style: none;
-      font-size: 14px;
-      color: #cbd5e1;
+      font-size: 15px;
+      color: #dfe5ee;
+    }
+
+    nav a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 8px;
+      transition: background 0.2s ease, color 0.2s ease;
     }
 
     nav a:hover {
-      color: #38bdf8;
+      color: var(--navy);
+      background: var(--ivory);
+    }
+
+    main {
+      margin-left: 300px;
+      min-height: 100vh;
     }
 
     section {
-      max-width: 1100px;
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 80px 24px;
+      padding: 80px 56px;
     }
 
     .hero {
@@ -75,9 +119,9 @@
       display: inline-block;
       width: fit-content;
       padding: 6px 12px;
-      border: 1px solid #334155;
+      border: 1px solid var(--navy);
       border-radius: 999px;
-      color: #38bdf8;
+      color: var(--navy);
       font-size: 14px;
       margin-bottom: 20px;
     }
@@ -86,17 +130,17 @@
       font-size: 52px;
       line-height: 1.15;
       margin-bottom: 24px;
-      color: #f8fafc;
+      color: var(--navy);
     }
 
     .hero h2 span {
-      color: #38bdf8;
+      color: var(--navy-muted);
     }
 
     .hero p {
       max-width: 720px;
       font-size: 18px;
-      color: #cbd5e1;
+      color: var(--navy-soft);
       margin-bottom: 32px;
     }
 
@@ -114,23 +158,23 @@
     }
 
     .btn-primary {
-      background: #38bdf8;
-      color: #020617;
+      background: var(--navy);
+      color: var(--ivory-soft);
     }
 
     .btn-secondary {
-      border: 1px solid #334155;
-      color: #e5e7eb;
+      border: 1px solid var(--navy);
+      color: var(--navy);
     }
 
     .section-title {
       font-size: 32px;
       margin-bottom: 16px;
-      color: #f8fafc;
+      color: var(--navy);
     }
 
     .section-desc {
-      color: #94a3b8;
+      color: var(--navy-muted);
       margin-bottom: 36px;
       max-width: 760px;
     }
@@ -149,20 +193,20 @@
     }
 
     .card {
-      background: #111827;
-      border: 1px solid #1f2937;
+      background: var(--ivory-soft);
+      border: 1px solid var(--border);
       border-radius: 18px;
       padding: 24px;
     }
 
     .card h3 {
-      color: #f8fafc;
+      color: var(--navy);
       margin-bottom: 12px;
       font-size: 20px;
     }
 
     .card p {
-      color: #cbd5e1;
+      color: var(--navy-soft);
       font-size: 15px;
     }
 
@@ -174,69 +218,100 @@
     }
 
     .tag {
-      background: #1e293b;
-      color: #93c5fd;
+      background: var(--navy-tint);
+      color: var(--navy);
       padding: 6px 10px;
       border-radius: 999px;
       font-size: 13px;
     }
 
+    .experience-list {
+      padding-left: 20px;
+      color: var(--navy-soft);
+      font-size: 15px;
+    }
+
+    .experience-list li + li {
+      margin-top: 8px;
+    }
+
+    .project-card {
+      display: flex;
+      min-height: 230px;
+      flex-direction: column;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--navy-muted);
+      box-shadow: 0 12px 28px rgba(19, 35, 63, 0.1);
+    }
+
+    .project-link {
+      margin-top: auto;
+      padding-top: 24px;
+      color: var(--navy);
+      font-size: 14px;
+      font-weight: bold;
+    }
+
     .skill-box h3 {
-      color: #38bdf8;
+      color: var(--navy);
       margin-bottom: 12px;
     }
 
     .skill-box ul {
       list-style: none;
-      color: #cbd5e1;
+      color: var(--navy-soft);
     }
 
     .skill-box li {
       margin-bottom: 8px;
     }
 
-    .timeline {
-      border-left: 2px solid #334155;
-      padding-left: 24px;
-    }
-
-    .timeline-item {
-      margin-bottom: 28px;
-      position: relative;
-    }
-
-    .timeline-item::before {
-      content: "";
-      width: 12px;
-      height: 12px;
-      background: #38bdf8;
-      border-radius: 50%;
-      position: absolute;
-      left: -31px;
-      top: 6px;
-    }
-
-    .timeline-item h3 {
-      color: #f8fafc;
-      margin-bottom: 6px;
-    }
-
-    .timeline-item span {
-      color: #94a3b8;
-      font-size: 14px;
+    .skill-note {
+      color: var(--navy-muted);
+      font-size: 12px;
     }
 
     footer {
-      border-top: 1px solid #1e293b;
+      margin-left: 300px;
+      border-top: 1px solid var(--border);
       text-align: center;
       padding: 32px 24px;
-      color: #64748b;
+      color: var(--navy-muted);
       font-size: 14px;
     }
 
     @media (max-width: 768px) {
+      header {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+
+      nav {
+        padding: 32px 24px 24px;
+        align-items: center;
+        text-align: center;
+      }
+
+      .profile-image { width: 112px; }
+
       nav ul {
-        display: none;
+        margin-top: 24px;
+        flex-direction: row;
+        justify-content: center;
+        gap: 4px;
+        flex-wrap: wrap;
+      }
+
+      nav a { padding: 8px 10px; }
+
+      main,
+      footer {
+        margin-left: 0;
       }
 
       .hero h2 {
@@ -249,7 +324,7 @@
       }
 
       section {
-        padding: 60px 20px;
+        padding: 60px 24px;
       }
     }
   </style>
@@ -258,31 +333,39 @@
 
   <header>
     <nav>
+      <img
+        class="profile-image"
+        src="assets/profile-navy-v2.png"
+        alt="Kangkuk Lee 임시 프로필 일러스트"
+      />
       <h1>Kangkuk Lee</h1>
+      <p class="profile-role">Backend Engineer</p>
       <ul>
+        <li><a href="#top">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#troubleshooting">Troubleshooting</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="badge">Data Engineer · Data Platform · Reliability</div>
+    <section id="top" class="hero">
+      <div class="badge">Backend Engineer · Performance · Reliability</div>
       <h2>
-        Data Engineer<br />
-        focused on <span>Data Pipelines</span><br />
-        and <span>Reliable Data Systems</span>
+        Backend Engineer<br />
+        focused on <span>Performance</span><br />
+        and <span>Reliable Systems</span>
       </h2>
       <p>
-        웹 백엔드 개발 경험을 바탕으로, 데이터가 안정적으로 수집·저장·활용되도록 설계하는 데 관심이 있는 개발자입니다.
-        PostgreSQL, TimescaleDB, 배치 자동화, 운영 이슈 대응을 통해 데이터 품질과 시스템 안정성을 높이는 경험을 쌓아왔습니다.
+        Java와 Spring Boot를 기반으로 서비스의 성능과 운영 안정성을 개선해 온 백엔드 개발자입니다.
+        대용량 데이터 조회 최적화, 현장 시스템 운영, 배포 자동화 경험을 바탕으로
+        실제 운영 환경의 문제를 끝까지 해결하는 데 집중합니다.
       </p>
       <div class="btn-group">
-        <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
+        <a href="#experience" class="btn btn-primary">경력 보기</a>
         <a href="#contact" class="btn btn-secondary">연락하기</a>
       </div>
     </section>
@@ -290,25 +373,25 @@
     <section id="about">
       <h2 class="section-title">About Me</h2>
       <p class="section-desc">
-        백엔드 개발에서 쌓은 서비스 운영 경험을 바탕으로,
-        데이터가 안정적으로 흐르고 관리되도록 설계하는 일에 더 큰 의미를 두고 있습니다.
-        데이터 파이프라인, 저장 구조, 배치 처리 자동화, 운영 안정성에 관심이 많습니다.
+        기능 구현에 그치지 않고 성능 병목을 찾고, 장애 원인을 분석하며,
+        운영과 배포 과정까지 개선하는 백엔드 개발자입니다.
+        현장에서 발견한 문제를 수치로 검증하고 재현 가능한 구조로 해결하는 것을 중요하게 생각합니다.
       </p>
 
       <div class="grid grid-2">
         <div class="card">
-          <h3>관심 분야</h3>
+          <h3>강점</h3>
           <p>
-            데이터 파이프라인 설계, 시계열 데이터 모델링, PostgreSQL 성능 튜닝,
-            TimescaleDB 기반 데이터 처리, 배치 자동화, 데이터 운영 안정성에 관심이 있습니다.
+            Java/Spring 기반 백엔드 개발, SQL 쿼리 및 조회 성능 최적화,
+            대용량 데이터 처리와 운영 장애 분석 경험을 갖고 있습니다.
           </p>
         </div>
 
         <div class="card">
           <h3>개발 방향</h3>
           <p>
-            실제 운영 환경에서 재현 가능하고 유지보수하기 쉬운 데이터 처리 구조를 만들고,
-            반복 업무를 줄이는 자동화와 장애 대응 프로세스를 설계하는 것을 지향합니다.
+            유지보수하기 쉬운 구조와 안정적인 서비스를 만들고,
+            반복 작업은 자동화하며 개선 결과를 수치로 검증하는 개발을 지향합니다.
           </p>
         </div>
       </div>
@@ -317,29 +400,32 @@
     <section id="skills">
       <h2 class="section-title">Skills</h2>
       <p class="section-desc">
-        데이터 엔지니어링 관점에서 실무에서 사용했거나 학습 중인 기술 스택입니다.
+        실무와 개인 프로젝트에서 활용한 주요 기술 스택입니다.
       </p>
 
       <div class="grid grid-3">
         <div class="card skill-box">
-          <h3>Data Processing</h3>
+          <h3>Backend</h3>
           <ul>
-            <li>SQL</li>
-            <li>PostgreSQL</li>
-            <li>TimescaleDB</li>
-            <li>Query Tuning</li>
-            <li>Data Modeling</li>
+            <li>Java</li>
+            <li>Spring Framework</li>
+            <li>Spring Boot</li>
+            <li>REST API</li>
+            <li>Batch & Scheduling</li>
+            <li>Tomcat</li>
           </ul>
         </div>
 
         <div class="card skill-box">
-          <h3>Automation & Batch</h3>
+          <h3>Database</h3>
           <ul>
-            <li>Batch Automation</li>
-            <li>Scheduling</li>
-            <li>Task Automation</li>
-            <li>Operational Reliability</li>
-            <li>Database Job Design</li>
+            <li>PostgreSQL</li>
+            <li>TimescaleDB</li>
+            <li>MS SQL Server</li>
+            <li>MongoDB <span class="skill-note">· Personal Project</span></li>
+            <li>SQL</li>
+            <li>Query Tuning</li>
+            <li>Index Design</li>
           </ul>
         </div>
 
@@ -347,112 +433,94 @@
           <h3>Infra & Tools</h3>
           <ul>
             <li>AWS Linux</li>
-            <li>Java / Spring</li>
             <li>Git / GitLab</li>
-            <li>Tomcat / Nginx</li>
-            <li>Redis</li>
+            <li>Nginx <span class="skill-note">· Personal Project</span></li>
+            <li>Redis <span class="skill-note">· Personal Project</span></li>
+            <li>Deployment Automation</li>
+            <li>System Monitoring</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2 class="section-title">Career Highlights</h2>
+      <p class="section-desc">
+        운영 환경에서 문제를 발견하고 성능과 안정성을 개선한 주요 경험입니다.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>1. 대시보드 조회 성능 90% 이상 개선</h3>
+          <ul class="experience-list">
+            <li>10초 주기로 갱신되는 대시보드에서 데이터 증가에 따라 조회 시간이 10초 이상 소요되는 병목 현상을 발견하고 분석했습니다.</li>
+            <li>통계 테이블을 구축하고 조회 조건에 최적화된 복합 인덱스를 설계했습니다.</li>
+            <li>조회 시간을 10초 이상에서 1초 미만으로 단축해 실시간 대시보드 조회 성능을 90% 이상 개선했습니다.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>2. 1억 건 이상 시계열 데이터 운영 및 조회 구조 개선</h3>
+          <ul class="experience-list">
+            <li>설비에서 4초 주기로 수집되는 1억 건 이상의 시계열 데이터를 PostgreSQL/TimescaleDB 기반으로 운영했습니다.</li>
+            <li>데이터 누적에 따른 조회 성능 저하와 저장 구조의 한계를 분석하고 Hypertable, Chunk, Index 기반으로 구조를 개선했습니다.</li>
+            <li>TimescaleDB의 압축 및 데이터 관리 기능을 테스트하고 실제 운영 환경 적용 가능성을 검증했습니다.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>3. 현장 배포 자동화로 작업 시간 50% 이상 단축 및 휴먼 에러 감소</h3>
+          <ul class="experience-list">
+            <li>폐쇄망 환경의 WAR 배포, 파일 백업, Properties 파일 반영, SQL 실행, Tomcat 재기동 등 수동 배포 프로세스를 자동화했습니다.</li>
+            <li>PC 1대 기준 배포 시간을 30~50분에서 10분 이내로 단축했습니다.</li>
+            <li>배포 오류를 10대당 약 5건에서 1건 이하로 줄이고, 절차 표준화로 작업자별 방식 차이와 반복 작업을 최소화했습니다.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>4. 170대 이상 스마트팩토리 시스템 운영 및 버전 관리</h3>
+          <ul class="experience-list">
+            <li>고객사 현장에 구축된 170대 이상의 스마트팩토리 PC 시스템을 운영·관리했습니다.</li>
+            <li>Java/Spring, Tomcat, PostgreSQL 및 설비 데이터 수집 프로그램에서 발생하는 장애를 분석하고 대응했습니다.</li>
+            <li>PC별 웹 애플리케이션과 데이터 수집 프로그램의 버전 관리 체계를 개선해 유지보수 효율성을 높였습니다.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>5. 해외 현장 단독 대응 및 End-to-End 시스템 구축</h3>
+          <ul class="experience-list">
+            <li>해외 고객사 현장에 단독 출장해 PC 설치부터 설비 데이터 수집, 프로그램 구동 및 운영 테스트까지 수행했습니다.</li>
+            <li>설비·네트워크·PC 환경과 소프트웨어를 함께 점검하며 현장의 연동 문제를 분석하고 대응했습니다.</li>
+            <li>인터넷 사용이 제한된 환경에서 사용자 피드백 수집, 프로그램 수정·검증, 운영 안정화까지 전체 구축 과정을 수행했습니다.</li>
           </ul>
         </div>
       </div>
     </section>
 
     <section id="projects">
-      <h2 class="section-title">Projects</h2>
+      <h2 class="section-title">Personal Projects</h2>
       <p class="section-desc">
-        실무 경험과 개인 프로젝트를 기반으로 정리한 주요 프로젝트입니다.
+        실무에서 얻은 문제의식과 관심 기술을 바탕으로 직접 설계하고 구현한 개인 프로젝트입니다.
       </p>
 
-      <div class="grid grid-2">
-        <div class="card">
-          <h3>시계열 데이터 저장 구조 개선</h3>
-          <p>
-            기존 PostgreSQL 기반 저장 구조를 TimescaleDB Hypertable 기반 구조로 재설계해,
-            데이터 적재 흐름과 저장 효율을 개선했습니다. SQL 구조를 정리하고,
-            배치 기반 데이터 저장 방식을 운영 환경에 맞게 전환했습니다.
-          </p>
-          <div class="tag-list">
-            <span class="tag">PostgreSQL</span>
-            <span class="tag">TimescaleDB</span>
-            <span class="tag">Data Modeling</span>
-            <span class="tag">Batch Automation</span>
-          </div>
-        </div>
+      <div class="grid grid-3">
+        <a class="card project-card" href="https://itkangkuk.github.io/factory-monitoring-dashboard/" target="_blank" rel="noopener noreferrer">
+          <h3>Smart Factory Monitoring</h3>
+          <p>실무에서 경험한 요구사항을 바탕으로 통계 데이터 조회와 설비 상태 모니터링 기능을 구현한 프로젝트입니다.</p>
+          <span class="project-link">프로젝트 보기 →</span>
+        </a>
 
-        <div class="card">
-          <h3>운영 자동화 및 배치 처리 구축</h3>
-          <p>
-            폐쇄망 환경에서 반복적으로 수행하던 배포와 운영 업무를 배치 기반 자동화로 전환했습니다.
-            수동 작업을 줄이고 운영 프로세스를 표준화해 안정성과 효율성을 높이는 경험을 쌓았습니다.
-          </p>
-          <div class="tag-list">
-            <span class="tag">Automation</span>
-            <span class="tag">Batch Script</span>
-            <span class="tag">Reliability</span>
-          </div>
-        </div>
+        <a class="card project-card" href="#projects" aria-label="Exercise Tempo 프로젝트 링크 준비 중">
+          <h3>Exercise Tempo Project</h3>
+          <p>운동 템포를 기록하고 스스로 수행 상태를 확인할 수 있도록 구현한 웹 애플리케이션입니다.</p>
+          <span class="project-link">링크 준비 중</span>
+        </a>
 
-        <div class="card">
-          <h3>개인 재무 데이터 관리 서비스</h3>
-          <p>
-            수입과 지출 데이터를 수집하고 관리하기 위한 개인 프로젝트로,
-            데이터 저장 구조와 운영 환경을 설계해 지속적으로 관리 가능한 형태로 구현했습니다.
-          </p>
-          <div class="tag-list">
-            <span class="tag">Data Management</span>
-            <span class="tag">PostgreSQL</span>
-            <span class="tag">SQL</span>
-            <span class="tag">Backend</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>운영 로그 및 정기 작업 스케줄러 구성</h3>
-          <p>
-            운영 환경에서 주기적으로 수행해야 하는 정리 작업과 배치 업무를 스케줄러 기반으로 구성했습니다.
-            반복 작업의 신뢰성을 높이는 경험을 바탕으로 데이터 운영 자동화에 대한 이해를 넓혔습니다.
-          </p>
-          <div class="tag-list">
-            <span class="tag">Scheduling</span>
-            <span class="tag">Automation</span>
-            <span class="tag">Operation</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="troubleshooting">
-      <h2 class="section-title">Data Reliability & Troubleshooting</h2>
-      <p class="section-desc">
-        운영 및 개발 과정에서 겪은 문제를 분석하고 해결한 경험입니다.
-      </p>
-
-      <div class="timeline">
-        <div class="timeline-item">
-          <h3>스케줄러 미동작 원인 분석 및 복구</h3>
-          <span>원인: 실행 설정 누락 및 흐름 오류</span>
-          <p>
-            정기 배치가 실행되지 않는 문제를 추적해 설정 누락과 실행 흐름 오류를 확인하고,
-            운영 환경에서 정상적으로 동작하도록 조정한 경험이 있습니다.
-          </p>
-        </div>
-
-        <div class="timeline-item">
-          <h3>다중 서버 환경에서 데이터/캐시 불일치 대응</h3>
-          <span>원인: 분산된 메모리 기반 처리 구조</span>
-          <p>
-            여러 인스턴스가 같은 데이터 소스를 공유하는 환경에서 데이터 불일치 문제가 발생하는 상황을 분석했고,
-            중앙화된 처리 방식과 캐시 무효화 전략의 필요성을 검토했습니다.
-          </p>
-        </div>
-
-        <div class="timeline-item">
-          <h3>데이터 구조 개선을 통한 성능 병목 분석</h3>
-          <span>관심 영역: 저장 구조와 쿼리 효율성</span>
-          <p>
-            데이터 저장 구조와 쿼리 흐름을 점검해 병목 지점을 찾고,
-            운영 환경에 맞는 설계 방향을 적용하는 방식으로 문제를 개선했습니다.
-          </p>
-        </div>
+        <a class="card project-card" href="#projects" aria-label="Financial Management 프로젝트 링크 준비 중">
+          <h3>Financial Management</h3>
+          <p>수입과 지출을 기록하고 기간별 재무 현황을 관리할 수 있도록 구현한 웹 애플리케이션입니다.</p>
+          <span class="project-link">링크 준비 중</span>
+        </a>
       </div>
     </section>
 
@@ -471,7 +539,7 @@
         <div class="card">
           <h3>GitHub</h3>
           <p>
-            <a href="https://github.com/goleagoleago7" target="_blank">
+            <a href="https://github.com/goleagoleago7" target="_blank" rel="noopener noreferrer">
               github.com/goleagoleago7
             </a>
           </p>
